@@ -4,14 +4,25 @@ import Header from './Header';
 import ItemList from './ItemList';
 import Sidebar from './Sidebar';
 
+import { useState } from 'react';
+
+const itemsList = [
+  { id: '1', label: 'Item 1', packed: false },
+  { id: '2', label: 'Item 2', packed: true },
+  { id: '3', label: 'Item 3', packed: false },
+  { id: '4', label: 'Item 4', packed: false },
+];
+
 function App() {
+  const [items, setItems] = useState(itemsList);
+
   return (
     <>
       <BackgroundHeading />
       <main>
         <Header />
-        <ItemList />
-        <Sidebar />
+        <ItemList items={items} />
+        <Sidebar setItems={setItems} />
       </main>
       <Footer />
     </>

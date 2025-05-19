@@ -1,10 +1,43 @@
+import { useRef, useEffect } from 'react';
 import Button from './Button';
 
-const AddItemForm = () => {
+const AddItemForm = ({ setItems }) => {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const itemText = formData.get('input').trim();
+
+    if (!itemText) {
+      resetInput();
+      return;
+    }
+
+    const newItem = {
+      id: new Date().getTime().toString(),
+      label: itemText,
+      packed: false,
+    };
+    setItems((prevItems) => [newItem, ...prevItems]);
+
+    resetInput();
+  };
+
+  const resetInput = () => {
+    inputRef.current.value = '';
+    inputRef.current.focus();
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor='input'>Add an item</label>
-      <input id='input' name='input' type='text' />
+      <input id='input' ref={inputRef} name='input' />
       <Button>Add to list</Button>
     </form>
   );
