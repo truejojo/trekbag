@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import Button from './Button';
 
-const AddItemForm = ({ setItems }) => {
+const AddItemForm = ({ handleAddItem }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -18,13 +18,7 @@ const AddItemForm = ({ setItems }) => {
       resetInput();
       return;
     }
-
-    const newItem = {
-      id: new Date().getTime().toString(),
-      label: itemText,
-      packed: false,
-    };
-    setItems((prevItems) => [newItem, ...prevItems]);
+    handleAddItem(itemText);
 
     resetInput();
   };

@@ -16,13 +16,23 @@ const itemsList = [
 function App() {
   const [items, setItems] = useState(itemsList);
 
+  const handleAddItem = (newItemText) => {
+    const newItem = {
+      id: new Date().getTime().toString(),
+      label: newItemText,
+      packed: false,
+    };
+
+    setItems((prevItems) => [newItem, ...prevItems]);
+  };
+
   return (
     <>
       <BackgroundHeading />
       <main>
         <Header />
         <ItemList items={items} />
-        <Sidebar setItems={setItems} />
+        <Sidebar handleAddItem={handleAddItem} />
       </main>
       <Footer />
     </>
