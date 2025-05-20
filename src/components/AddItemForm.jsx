@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import Button from './Button';
 
-const AddItemForm = ({ handleAddItem }) => {
+const AddItemForm = ({ onAddItem }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const AddItemForm = ({ handleAddItem }) => {
       resetInput();
       return;
     }
-    handleAddItem(itemText);
+    onAddItem(itemText);
 
     resetInput();
   };

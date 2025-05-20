@@ -4,7 +4,7 @@ import ButtonGroup from './ButtonGroup';
 const Sidebar = ({ handleAddItem }) => {
   return (
     <div className='sidebar'>
-      <AddItemForm handleAddItem={handleAddItem} />
+      <AddItemForm onAddItem={handleAddItem} />
       <ButtonGroup />
     </div>
   );
