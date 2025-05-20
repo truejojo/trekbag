@@ -1,17 +1,38 @@
 import Button from './Button';
 
-const buttons = [
-  { id: '1', text: 'Mark to list' },
-  { id: '2', text: 'Mark all as incomplete' },
-  { id: '3', text: 'Reset to initial' },
-  { id: '4', text: 'Remove all items' },
-];
+const ButtonGroup = ({
+  handleRemoveAllItems,
+  handleResetToInitial,
+  handleMarkAllAsIncomplete,
+  handleMarkAllAsComplete,
+}) => {
+  const buttons = [
+    {
+      id: '1',
+      text: 'Mark all as complete',
+      onClick: handleMarkAllAsComplete,
+    },
+    {
+      id: '2',
+      text: 'Mark all as incomplete',
+      onClick: handleMarkAllAsIncomplete,
+    },
+    {
+      id: '3',
+      text: 'Reset to initial',
+      onClick: handleResetToInitial,
+    },
+    {
+      id: '4',
+      text: 'Remove all items',
+      onClick: handleRemoveAllItems,
+    },
+  ];
 
-const ButtonGroup = () => {
   return (
     <section className='button-group'>
       {buttons.map((button) => (
-        <Button key={button.id} type='secondary'>
+        <Button key={button.id} buttonType='secondary' onClick={button.onClick}>
           {button.text}
         </Button>
       ))}

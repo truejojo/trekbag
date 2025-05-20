@@ -1,10 +1,8 @@
-import { useState } from 'react';
-
-const ItemList = ({ items }) => {
+const ItemList = ({ items, handleToggleItem }) => {
   return (
     <ul>
       {items.map((item) => (
-        <Item key={item.id} item={item} />
+        <Item key={item.id} item={item} onToggle={handleToggleItem} />
       ))}
     </ul>
   );
@@ -12,21 +10,16 @@ const ItemList = ({ items }) => {
 
 export default ItemList;
 
-const Item = ({ item }) => {
+const Item = ({ item, onToggle }) => {
   const { id, label, packed } = item;
-  const [isChecked, setIsChecked] = useState(packed);
-
-  const handleIsChecked = () => {
-    setIsChecked(!isChecked);
-  };
 
   return (
     <li className='item'>
       <input
         type='checkbox'
         id={id}
-        checked={isChecked}
-        onChange={handleIsChecked}
+        checked={packed}
+        onChange={() => onToggle(id)}
       />
       <label htmlFor={id}>{label}</label>
       <button onClick={() => {}}>X</button>
