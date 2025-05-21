@@ -4,9 +4,9 @@ import Header from './Header';
 import ItemList from './ItemList';
 import Sidebar from './Sidebar';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const itemsList = [
+const initialItemsList = [
   { id: '1', label: 'Item 1', packed: false },
   { id: '2', label: 'Item 2', packed: true },
   { id: '3', label: 'Item 3', packed: false },
@@ -14,7 +14,31 @@ const itemsList = [
 ];
 
 function App() {
-  const [items, setItems] = useState(itemsList);
+  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState(
+  //   () => JSON.parse(localStorage.getItem('items')) || initialItemsList,
+  // );
+  // const [items, setItems] = useState(() => {
+  //   const storedItems = localStorage.getItem('items');
+  //   // Prüfe, ob Daten vorhanden sind
+  //   if (storedItems) {
+  //     try {
+  //       const parsedItems = JSON.parse(storedItems);
+  //       // Stelle sicher, dass es ein Array ist
+  //       if (Array.isArray(parsedItems)) {
+  //         return parsedItems;
+  //       }
+  //     } catch (error) {
+  //       console.error('Fehler beim Parsen der gespeicherten Items:', error);
+  //     }
+  //   }
+  //   // Fallback auf initialItemsList, wenn keine/ungültige Daten
+  //   return initialItemsList;
+  // });
+
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
 
   const handleAddItem = (newItemText) => {
     const newItem = {
@@ -42,9 +66,7 @@ function App() {
     );
   };
 
-  const handleRemoveAllItems = () => {
-    setItems([]);
-  };
+  const handleRemoveAllItems = () => setItems([]);
 
   const handleToggleItem = (itemId) => {
     setItems((prevItems) =>
@@ -54,16 +76,11 @@ function App() {
     );
   };
 
-  const handleResetToInitial = () => {
-    setItems(itemsList);
-  };
+  const handleResetToInitial = () => setItems(initialItemsList);
 
-  const getAllItemsCount = () => {
-    return items.length;
-  };
-  const getPackedItemsCount = () => {
-    return items.filter((item) => item.packed).length;
-  };
+  const getAllItemsCount = () => items.length;
+
+  const getPackedItemsCount = () => items.filter((item) => item.packed).length;
 
   return (
     <>
