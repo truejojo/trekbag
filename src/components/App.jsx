@@ -26,12 +26,14 @@ function App() {
     setItems((prevItems) => [newItem, ...prevItems]);
   };
 
-  const handleRemoveAllItems = () => {
-    setItems([]);
+  const handleRemoveItem = (itemId) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
-  const handleResetToInitial = () => {
-    setItems(itemsList);
+  const handleMarkAllAsComplete = () => {
+    setItems((prevItems) =>
+      prevItems.map((item) => ({ ...item, packed: true })),
+    );
   };
 
   const handleMarkAllAsIncomplete = () => {
@@ -40,10 +42,8 @@ function App() {
     );
   };
 
-  const handleMarkAllAsComplete = () => {
-    setItems((prevItems) =>
-      prevItems.map((item) => ({ ...item, packed: true })),
-    );
+  const handleRemoveAllItems = () => {
+    setItems([]);
   };
 
   const handleToggleItem = (itemId) => {
@@ -54,12 +54,20 @@ function App() {
     );
   };
 
+  const handleResetToInitial = () => {
+    setItems(itemsList);
+  };
+
   return (
     <>
       <BackgroundHeading />
       <main>
         <Header />
-        <ItemList items={items} handleToggleItem={handleToggleItem} />
+        <ItemList
+          items={items}
+          handleToggleItem={handleToggleItem}
+          handleRemoveItem={handleRemoveItem}
+        />
         <Sidebar
           handleAddItem={handleAddItem}
           handleRemoveAllItems={handleRemoveAllItems}

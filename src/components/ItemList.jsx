@@ -1,8 +1,13 @@
-const ItemList = ({ items, handleToggleItem }) => {
+const ItemList = ({ items, handleToggleItem, handleRemoveItem }) => {
   return (
     <ul>
       {items.map((item) => (
-        <Item key={item.id} item={item} onToggle={handleToggleItem} />
+        <Item
+          key={item.id}
+          item={item}
+          onToggleItem={handleToggleItem}
+          onRemoveItem={handleRemoveItem}
+        />
       ))}
     </ul>
   );
@@ -10,7 +15,7 @@ const ItemList = ({ items, handleToggleItem }) => {
 
 export default ItemList;
 
-const Item = ({ item, onToggle }) => {
+const Item = ({ item, onToggleItem, onRemoveItem }) => {
   const { id, label, packed } = item;
 
   return (
@@ -19,10 +24,10 @@ const Item = ({ item, onToggle }) => {
         type='checkbox'
         id={id}
         checked={packed}
-        onChange={() => onToggle(id)}
+        onChange={() => onToggleItem(id)}
       />
       <label htmlFor={id}>{label}</label>
-      <button onClick={() => {}}>X</button>
+      <button onClick={() => onRemoveItem(id)}>X</button>
     </li>
   );
 };
