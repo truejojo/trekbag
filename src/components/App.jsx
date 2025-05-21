@@ -58,11 +58,21 @@ function App() {
     setItems(itemsList);
   };
 
+  const getAllItemsCount = () => {
+    return items.length;
+  };
+  const getPackedItemsCount = () => {
+    return items.filter((item) => item.packed).length;
+  };
+
   return (
     <>
       <BackgroundHeading />
       <main>
-        <Header />
+        <Header
+          getAllItemsCount={getAllItemsCount}
+          getPackedItemsCount={getPackedItemsCount}
+        />
         <ItemList
           items={items}
           handleToggleItem={handleToggleItem}

@@ -1,7 +1,14 @@
 import React from 'react';
 
-const Counter = () => {
-  return <div>Counter</div>;
+const Counter = ({ getAllItemsCount, getPackedItemsCount }) => {
+  return (
+    <div>
+      <p>
+        <strong>{getPackedItemsCount()}</strong> / {getAllItemsCount()} Items
+        packed
+      </p>
+    </div>
+  );
 };
 
 export default Counter;
