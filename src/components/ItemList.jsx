@@ -1,7 +1,9 @@
 const ItemList = ({ items, handleToggleItem, handleRemoveItem }) => {
   return (
-    <ul>
-      {items.map((item) => (
+    <ul className='item-list'>
+      {items.length === 0 && <EmptyItemView />}
+
+      {items?.map((item) => (
         <Item
           key={item.id}
           item={item}
@@ -29,5 +31,14 @@ const Item = ({ item, onToggleItem, onRemoveItem }) => {
       <label htmlFor={id}>{label}</label>
       <button onClick={() => onRemoveItem(id)}>X</button>
     </li>
+  );
+};
+
+const EmptyItemView = () => {
+  return (
+    <div className='empty-state'>
+      <h2>No items in the list</h2>
+      <p>Add some items to get started!</p>
+    </div>
   );
 };
